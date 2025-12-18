@@ -57,6 +57,8 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    /* Account for fixed navbar */
 }
 
 body {
@@ -84,12 +86,18 @@ body {
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     transition: var(--transition-base);
+    animation: navbarScrollEffect linear both;
+    animation-timeline: scroll();
+    animation-range: 0 100px;
 }
 
-.navbar.scrolled {
-    background-color: rgba(15, 15, 35, 0.95);
-    box-shadow: var(--shadow-md);
+@keyframes navbarScrollEffect {
+    to {
+        background-color: rgba(15, 15, 35, 0.95);
+        box-shadow: var(--shadow-md);
+    }
 }
+
 
 .nav-content {
     display: flex;
@@ -523,6 +531,18 @@ section {
     transition: var(--transition-base);
     position: relative;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUpOnScroll linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+}
+
+@keyframes fadeInUpOnScroll {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .feature-card::before {
@@ -596,6 +616,11 @@ section {
     position: relative;
     padding-left: var(--spacing-2xl);
     margin-bottom: var(--spacing-2xl);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUpOnScroll linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
 }
 
 .timeline-marker {
@@ -666,6 +691,11 @@ section {
     padding: var(--spacing-xl);
     text-align: center;
     transition: var(--transition-base);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUpOnScroll linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
 }
 
 .speaker-card:hover {
@@ -841,6 +871,15 @@ section {
     border-color: var(--primary-color);
     background: rgba(255, 255, 255, 0.08);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-group:focus-within label {
+    color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.form-group label {
+    transition: all var(--transition-fast);
 }
 
 .checkbox-label {
